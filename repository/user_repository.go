@@ -2,7 +2,6 @@ package repository
 
 import (
 	"context"
-	dtorepository "go-template/dto/general/repository"
 	"go-template/entity"
 	errorapp "go-template/share/general/error"
 
@@ -15,7 +14,6 @@ type UserRepository interface {
 	Create(ctx context.Context, u entity.User) (entity.User, error)
 	FindByEmail(ctx context.Context, email string) (entity.User, error)
 	FindById(ctx context.Context, userId int) (entity.User, error)
-	FindUserWalletAccountByUserId(ctx context.Context, userId int) (dtorepository.UserWalletDataResponse, error)
 	CreateUserForgetPassword(ctx context.Context, urp entity.UserResetPassword) (entity.UserResetPassword, error)
 	GetResetPasswordTokenByToken(ctx context.Context, token string) (entity.UserResetPassword, error)
 	UpdateUser(ctx context.Context, u entity.User) (entity.User, error)
@@ -76,25 +74,6 @@ func (ur *userRepository) FindById(ctx context.Context, userId int) (entity.User
 	err := ur.db.WithContext(ctx).Where("id = ?", userId).First(&u).Error
 
 	return u, err
-}
-
-func (ur *userRepository) FindUserWalletAccountByUserId(ctx context.Context, userId int) (dtorepository.UserWalletDataResponse, error) {
-	res := dtorepository.UserWalletDataResponse{}
-
-	err := ur.db.WithContext(ctx).Raw(`
-		select 
-			w."number" as wallet_number,
-			sum(wh.amount) as wallet_balance
-		from users u 
-		inner join wallets w 
-			on w.user_id = u.id 
-		left join wallet_histories wh 
-			on wh.wallet_id = w.id 
-		where u.id = 1
-		group by w."number" 
-	`).Scan(&res).Error
-
-	return res, err
 }
 
 func (ur *userRepository) CreateUserForgetPassword(ctx context.Context, urp entity.UserResetPassword) (entity.UserResetPassword, error) {
