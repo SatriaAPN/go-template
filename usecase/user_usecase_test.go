@@ -405,7 +405,7 @@ func TestUserUsecase_ForgetPassword(t *testing.T) {
 			res2 = entity.UserResetPassword{
 				UserId:    int(res1.ID),
 				Token:     res.Token,
-				ExpiredAt: time.Now().Add(config.ForgetPasswordExpiredMinutes),
+				ExpiredAt: time.Now().Add(config.ForgetPasswordExpiredDuration),
 			}
 		)
 

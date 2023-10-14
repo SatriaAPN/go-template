@@ -5,6 +5,7 @@ import (
 	handlergrpc "go-template/handler/grpc"
 	"go-template/pb"
 	"go-template/repository"
+	"go-template/share/general/config"
 	"go-template/share/general/util"
 	interceptor "go-template/share/grpc/inteceptor"
 	"go-template/usecase"
@@ -13,6 +14,8 @@ import (
 )
 
 func NewServer() *grpc.Server {
+	config.InitEnvReader()
+
 	db := database.GetInstance()
 
 	urc := repository.UserRepositoryConfig{

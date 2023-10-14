@@ -2,7 +2,7 @@ package database
 
 import (
 	"fmt"
-	"os"
+	"go-template/share/general/config"
 
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
@@ -21,13 +21,13 @@ func GetInstance() *gorm.DB {
 
 func connectDB() *gorm.DB {
 	dsn := fmt.Sprintf("host=%v user=%v password=%v dbname=%v port=%v sslmode=%v TimeZone=%v",
-		os.Getenv("DB_HOST"),
-		os.Getenv("DB_USER"),
-		os.Getenv("DB_PASSWORD"),
-		os.Getenv("DB_NAME"),
-		os.Getenv("DB_PORT"),
-		os.Getenv("DB_SSLMODE"),
-		os.Getenv("DB_TIMEZONE"),
+		config.DbHost(),
+		config.DbUser(),
+		config.DbPassword(),
+		config.DbName(),
+		config.DbPort(),
+		config.DbSslMode(),
+		config.DbTimezone(),
 	)
 
 	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})

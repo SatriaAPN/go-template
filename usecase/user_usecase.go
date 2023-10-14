@@ -184,7 +184,7 @@ func (uu *userUsecase) ForgetPassword(ctx context.Context, r dtousecase.ForgetPa
 	urp := entity.UserResetPassword{
 		UserId:    int(u.ID),
 		Token:     rt,
-		ExpiredAt: time.Now().Add(config.ForgetPasswordExpiredMinutes),
+		ExpiredAt: time.Now().Add(config.ForgetPasswordExpiredDuration),
 	}
 
 	urp2, err := uu.userRepository.CreateUserForgetPassword(ctx, urp)

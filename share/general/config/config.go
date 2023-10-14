@@ -1,56 +1,105 @@
 package config
 
 import (
-	"os"
 	"strconv"
 	"time"
 
 	"github.com/golang-jwt/jwt/v5"
+	"github.com/spf13/viper"
 )
 
-var JwtSigningMethod = jwt.SigningMethodHS256
-var JwtSignatureKey = func() []byte {
-	sk := []byte(os.Getenv("JWT_SIGNATURE_KEY"))
-	return []byte(sk)
+func InitEnvReader() {
+	viper.SetConfigFile("../../.env")
+	viper.ReadInConfig()
+	viper.AddConfigPath("path")
 }
-var ApplicationName = func() string {
-	return os.Getenv("APPLICATION_NAME")
-}
-var LoginExpirationDuration = 1 * time.Hour
-var BcryptCost = func() int {
-	costString := os.Getenv("BCRYPT_COST")
-	cost, _ := strconv.Atoi(costString)
 
-	return cost
+func getEnvValue(key string) string {
+	a := viper.Get(key)
+
+	return a.(string)
 }
-var HttpRequestTimeoutSeconds = func() int {
-	costString := os.Getenv("HTTP_REQUEST_TIMEOUT_SECONDS")
-	cost, _ := strconv.Atoi(costString)
-	return cost
-}
-var WalletNumberStart = 4200000000000
-var MinimumPasswordLength = 6
-var MaximumPasswordLength = 20
-var ForgetPasswordTokenLength = 6
-var MinimumTopUpAmount = 50000
-var MaximumTopUpAmount = 10000000
-var MinimumTransferAmount = 1000
-var MaximumTransferAmount = 50000000
-var MaximumTransferDescriptionLength = 35
-var GachaBoard = [][]int{
-	{1, 2, 3},
-	{4, 5, 6},
-	{7, 8, 9},
-}
-var GachaBoardMinimumChoose = 1
-var GachaBoardMaximumChoose = 9
-var ForgetPasswordExpiredMinutes = 15 * time.Minute
-var GachaRewardLevel1 = 0
-var GachaRewardLevel2 = 10000
-var GachaRewardLevel3 = 20000
-var GachaRewardLevel4 = 50000
-var GachaRewardLevel5 = 100000
-var GachaRewardLevel6 = 150000
-var GachaRewardLevel7 = 200000
-var GachaRewardLevel8 = 250000
-var GachaRewardLevel9 = 300000
+
+var (
+	DbHost = func() string {
+		return getEnvValue("DB_HOST")
+	}
+
+	DbUser = func() string {
+		return getEnvValue("DB_USER")
+	}
+
+	DbPassword = func() string {
+		return getEnvValue("DB_PASSWORD")
+	}
+
+	DbName = func() string {
+		return getEnvValue("DB_NAME")
+	}
+
+	DbPort = func() string {
+		return getEnvValue("DB_PORT")
+	}
+
+	DbSslMode = func() string {
+		return getEnvValue("DB_SSLMODE")
+	}
+
+	DbTimezone = func() string {
+		return getEnvValue("DB_TIMEZONE")
+	}
+
+	JwtSigningMethod = jwt.SigningMethodHS256
+
+	JwtSignatureKey = func() []byte {
+		sk := []byte(getEnvValue("JWT_SIGNATURE_KEY"))
+		return []byte(sk)
+
+	}
+
+	ApplicationName = func() string {
+		return getEnvValue("APPLICATION_NAME")
+	}
+
+	LoginExpirationDuration = 1 * time.Hour
+
+	BcryptCost = func() int {
+		costString := getEnvValue("BCRYPT_COST")
+		cost, _ := strconv.Atoi(costString)
+
+		return cost
+	}
+
+	HttpRequestTimeoutSeconds = func() int {
+		costString := getEnvValue("HTTP_REQUEST_TIMEOUT_SECONDS")
+		cost, _ := strconv.Atoi(costString)
+		return cost
+	}
+
+	WalletNumberStart                = 4200000000000
+	MinimumPasswordLength            = 6
+	MaximumPasswordLength            = 20
+	ForgetPasswordTokenLength        = 6
+	MinimumTopUpAmount               = 50000
+	MaximumTopUpAmount               = 10000000
+	MinimumTransferAmount            = 1000
+	MaximumTransferAmount            = 50000000
+	MaximumTransferDescriptionLength = 35
+	GachaBoard                       = [][]int{
+		{1, 2, 3},
+		{4, 5, 6},
+		{7, 8, 9},
+	}
+	GachaBoardMinimumChoose       = 1
+	GachaBoardMaximumChoose       = 9
+	ForgetPasswordExpiredDuration = 15 * time.Minute
+	GachaRewardLevel1             = 0
+	GachaRewardLevel2             = 10000
+	GachaRewardLevel3             = 20000
+	GachaRewardLevel4             = 50000
+	GachaRewardLevel5             = 100000
+	GachaRewardLevel6             = 150000
+	GachaRewardLevel7             = 200000
+	GachaRewardLevel8             = 250000
+	GachaRewardLevel9             = 300000
+)

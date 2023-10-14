@@ -5,12 +5,12 @@ import (
 	handlerrest "go-template/handler/rest"
 	"go-template/repository"
 	routerrest "go-template/server/rest/router"
+	"go-template/share/general/config"
 	"go-template/share/general/util"
 	utilhttp "go-template/share/http/util"
 	"go-template/usecase"
 	"net/http"
 
-	"github.com/joho/godotenv"
 	"gorm.io/gorm"
 )
 
@@ -27,7 +27,7 @@ func NewServer() *http.Server {
 }
 
 func InitServer() {
-	godotenv.Load()
+	config.InitEnvReader()
 
 	srv := NewServer()
 
