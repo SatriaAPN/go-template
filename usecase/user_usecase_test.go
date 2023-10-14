@@ -3,7 +3,6 @@ package usecase_test
 import (
 	"context"
 	dto "go-template/dto/general"
-	dtorepository "go-template/dto/general/repository"
 	dtousecase "go-template/dto/general/usecase"
 	"go-template/entity"
 	"go-template/mocks"
@@ -402,12 +401,9 @@ func TestUserUsecase_GetUserProfile(t *testing.T) {
 			req  = dtousecase.GetUserProfileRequest{UserId: 1}
 			res  = dtousecase.ProfileUserResponse{Name: "satria", Email: "satria@mail.com", WalletNumber: "333", WalletBalance: decimal.NewFromInt(10000)}
 			res1 = entity.User{ID: uint(req.UserId), Name: res.Name, Email: res.Email}
-			req2 = dtorepository.GetWalletBalanceRequest{UserId: req.UserId}
-			res2 = dtorepository.UserWalletDataResponse{WalletBalance: res.WalletBalance, WalletNumber: res.WalletNumber}
 		)
 
 		urmock.On("FindById", ctx, req.UserId).Return(res1, nil)
-		urmock.On("FindUserWalletAccountByUserId", ctx, req2.UserId).Return(res2, nil)
 
 		lur, err := us.GetUserProfile(ctx, req)
 

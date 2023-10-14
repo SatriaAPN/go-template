@@ -162,16 +162,12 @@ func (uu *userUsecase) GetUserProfile(ctx context.Context, r dtousecase.GetUserP
 		return res, errorapp.ErrorHandling(err)
 	}
 
-	w, err := uu.userRepository.FindUserWalletAccountByUserId(ctx, int(r.UserId))
-
 	if err != nil {
 		return res, errorapp.ErrorHandling(err)
 	}
 
 	res.Name = u.Name
 	res.Email = u.Email
-	res.WalletBalance = w.WalletBalance
-	res.WalletNumber = w.WalletNumber
 
 	return res, nil
 }
