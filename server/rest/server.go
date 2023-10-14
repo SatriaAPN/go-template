@@ -1,10 +1,10 @@
-package server
+package serverrest
 
 import (
 	"go-template/database"
-	"go-template/handler"
+	handlerrest "go-template/handler/rest"
 	"go-template/repository"
-	"go-template/server/router"
+	routerrest "go-template/server/rest/router"
 	utilhttp "go-template/share/http/util"
 	"go-template/share/util"
 	"go-template/usecase"
@@ -16,7 +16,7 @@ import (
 
 func NewServer() *http.Server {
 
-	r := router.NewRouter(initHandler()).GetRouter()
+	r := routerrest.NewRouter(initHandler()).GetRouter()
 
 	s := http.Server{
 		Addr:    ":8080",
@@ -34,17 +34,17 @@ func InitServer() {
 	utilhttp.GracefulShutdown(srv)
 }
 
-func initHandler() router.RouterConfig {
+func initHandler() routerrest.RouterConfig {
 	db := database.GetInstance()
 
-	nrc := router.RouterConfig{
+	nrc := routerrest.RouterConfig{
 		UserHandler: initUserHandler(db),
 	}
 
 	return nrc
 }
 
-func initUserHandler(db *gorm.DB) handler.UserHandler {
+func initUserHandler(db *gorm.DB) handlerrest.UserHandler {
 	urc := repository.UserRepositoryConfig{
 		Db: db,
 	}
@@ -58,10 +58,10 @@ func initUserHandler(db *gorm.DB) handler.UserHandler {
 	}
 	uu := usecase.NewUserUsecase(uuc)
 
-	uhc := handler.UserHandlerConfig{
+	uhc := handlerrest.UserHandlerConfig{
 		UserUsecase: uu,
 	}
-	uh := handler.NewUserHandler(uhc)
+	uh := handlerrest.NewUserHandler(uhc)
 
 	return uh
 }

@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	servergrpc "library-exercise/server/grpc"
+	servergrpc "go-template/server/grpc"
 	"net"
 )
 

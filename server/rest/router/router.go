@@ -1,7 +1,7 @@
-package router
+package routerrest
 
 import (
-	"go-template/handler"
+	handlerrest "go-template/handler/rest"
 	"go-template/share/http/middleware"
 
 	"github.com/gin-gonic/gin"
@@ -13,11 +13,11 @@ type Router interface {
 
 type router struct {
 	router      *gin.Engine
-	userHandler handler.UserHandler
+	userHandler handlerrest.UserHandler
 }
 
 type RouterConfig struct {
-	UserHandler handler.UserHandler
+	UserHandler handlerrest.UserHandler
 }
 
 func NewRouter(config RouterConfig) Router {

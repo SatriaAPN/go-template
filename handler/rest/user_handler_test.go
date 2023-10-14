@@ -1,4 +1,4 @@
-package handler_test
+package handlerrest_test
 
 import (
 	"encoding/json"
@@ -6,9 +6,9 @@ import (
 	"go-template/dto"
 	dtohttp "go-template/dto/http"
 	dtousecase "go-template/dto/usecase"
-	"go-template/handler"
+	handler "go-template/handler/rest"
 	"go-template/mocks"
-	"go-template/server/router"
+	routerrest "go-template/server/rest/router"
 	"go-template/share/util"
 	"net/http"
 	"net/http/httptest"
@@ -26,8 +26,8 @@ func MakeRequestBody(dto interface{}) *strings.Reader {
 	return strings.NewReader(string(payload))
 }
 
-func serveUserHandler(req *http.Request, rc router.RouterConfig) *httptest.ResponseRecorder {
-	router := router.NewRouter(rc)
+func serveUserHandler(req *http.Request, rc routerrest.RouterConfig) *httptest.ResponseRecorder {
+	router := routerrest.NewRouter(rc)
 	fmt.Println(router)
 	rec := httptest.NewRecorder()
 	router.GetRouter().ServeHTTP(rec, req)
@@ -43,7 +43,7 @@ func TestUserHandler_CreateUser(t *testing.T) {
 		}
 		uh = handler.NewUserHandler(uhc)
 
-		rc = router.RouterConfig{
+		rc = routerrest.RouterConfig{
 			UserHandler: uh,
 		}
 	)
@@ -83,7 +83,7 @@ func TestUserHandler_UserLogin(t *testing.T) {
 		}
 		uh = handler.NewUserHandler(uhc)
 
-		rc = router.RouterConfig{
+		rc = routerrest.RouterConfig{
 			UserHandler: uh,
 		}
 	)
@@ -112,7 +112,7 @@ func TestUserHandler_GetProfile(t *testing.T) {
 			UserUsecase: mockUserUsecase,
 		}
 		uh = handler.NewUserHandler(uhc)
-		rc = router.RouterConfig{
+		rc = routerrest.RouterConfig{
 			UserHandler: uh,
 		}
 
@@ -140,7 +140,7 @@ func TestUserHandler_ForgetPassword(t *testing.T) {
 		}
 		uh = handler.NewUserHandler(uhc)
 
-		rc = router.RouterConfig{
+		rc = routerrest.RouterConfig{
 			UserHandler: uh,
 		}
 	)

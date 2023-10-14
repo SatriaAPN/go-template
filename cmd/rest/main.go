@@ -1,6 +1,6 @@
 package main
 
-import serverrest "library-exercise/server/rest"
+import serverrest "go-template/server/rest"
 
 func main() {
 	serverrest.InitServer()
