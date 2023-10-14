@@ -2,13 +2,13 @@ package usecase_test
 
 import (
 	"context"
-	"go-template/dto"
-	dtorepository "go-template/dto/repository"
-	dtousecase "go-template/dto/usecase"
+	dto "go-template/dto/general"
+	dtorepository "go-template/dto/general/repository"
+	dtousecase "go-template/dto/general/usecase"
 	"go-template/entity"
 	"go-template/mocks"
-	"go-template/share/config"
-	errorapp "go-template/share/error"
+	"go-template/share/general/config"
+	errorapp "go-template/share/general/error"
 	"go-template/usecase"
 	"testing"
 	"time"
