@@ -3,7 +3,6 @@ package handlerrest
 import (
 	dtousecase "go-template/dto/general/usecase"
 	dtohttp "go-template/dto/http"
-	utilhttp "go-template/share/http/util"
 	"go-template/usecase"
 	"net/http"
 
@@ -13,7 +12,6 @@ import (
 type UserHandler interface {
 	CreateUser(c *gin.Context)
 	Login(c *gin.Context)
-	GetProfile(c *gin.Context)
 	ForgetPassword(c *gin.Context)
 	ResetPassword(c *gin.Context)
 }
@@ -89,36 +87,6 @@ func (uh *userHandler) Login(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusOK, dtohttp.Response{Data: u4})
-}
-
-func (uh *userHandler) GetProfile(c *gin.Context) {
-	ctx := c.Request.Context()
-	res := dtohttp.ProfileUserResponse{}
-
-	ad, err := utilhttp.GetAuthDataFromGinContext(c)
-
-	if err != nil {
-		c.Error(err)
-		return
-	}
-
-	b := dtousecase.GetUserProfileRequest{
-		UserId: int(ad.ID),
-	}
-
-	r, err := uh.userUsecase.GetUserProfile(ctx, b)
-
-	if err != nil {
-		c.Error(err)
-		return
-	}
-
-	res.Name = r.Name
-	res.Email = r.Email
-	res.WalletBalance = r.WalletBalance
-	res.WalletNumber = r.WalletNumber
-
-	c.JSON(http.StatusOK, dtohttp.Response{Data: res})
 }
 
 func (uh *userHandler) ForgetPassword(c *gin.Context) {

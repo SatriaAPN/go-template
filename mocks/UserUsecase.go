@@ -56,27 +56,6 @@ func (_m *UserUsecase) ForgetPassword(ctx context.Context, r dtousecase.ForgetPa
 	return r0, r1
 }
 
-// GetUserProfile provides a mock function with given fields: ctx, r
-func (_m *UserUsecase) GetUserProfile(ctx context.Context, r dtousecase.GetUserProfileRequest) (dtousecase.ProfileUserResponse, error) {
-	ret := _m.Called(ctx, r)
-
-	var r0 dtousecase.ProfileUserResponse
-	if rf, ok := ret.Get(0).(func(context.Context, dtousecase.GetUserProfileRequest) dtousecase.ProfileUserResponse); ok {
-		r0 = rf(ctx, r)
-	} else {
-		r0 = ret.Get(0).(dtousecase.ProfileUserResponse)
-	}
-
-	var r1 error
-	if rf, ok := ret.Get(1).(func(context.Context, dtousecase.GetUserProfileRequest) error); ok {
-		r1 = rf(ctx, r)
-	} else {
-		r1 = ret.Error(1)
-	}
-
-	return r0, r1
-}
-
 // LoginUser provides a mock function with given fields: ctx, cu
 func (_m *UserUsecase) LoginUser(ctx context.Context, cu dtousecase.LoginUserRequest) (dtousecase.LoginUserResponse, error) {
 	ret := _m.Called(ctx, cu)

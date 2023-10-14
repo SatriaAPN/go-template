@@ -13,7 +13,6 @@ import (
 	"time"
 
 	"github.com/go-errors/errors"
-	"github.com/shopspring/decimal"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
 )
@@ -381,34 +380,6 @@ func TestUserUsecase_LoginUser(t *testing.T) {
 		_, err := us.LoginUser(ctx, req)
 
 		assert.ErrorIs(err, errorapp.ErrWrongPassword)
-	})
-}
-
-func TestUserUsecase_GetUserProfile(t *testing.T) {
-	assert := assert.New(t)
-	t.Run("should success get user profile", func(t *testing.T) {
-		var (
-			urmock = mocks.UserRepository{}
-			phmock = mocks.PasswordHasher{}
-			atmock = mocks.AuthTokenGenerator{}
-			usc    = usecase.UserUsecaseConfig{
-				UserRepository:     &urmock,
-				PasswordHasher:     &phmock,
-				AuthTokenGenerator: &atmock,
-			}
-			us   = usecase.NewUserUsecase(usc)
-			ctx  = context.Background()
-			req  = dtousecase.GetUserProfileRequest{UserId: 1}
-			res  = dtousecase.ProfileUserResponse{Name: "satria", Email: "satria@mail.com", WalletNumber: "333", WalletBalance: decimal.NewFromInt(10000)}
-			res1 = entity.User{ID: uint(req.UserId), Name: res.Name, Email: res.Email}
-		)
-
-		urmock.On("FindById", ctx, req.UserId).Return(res1, nil)
-
-		lur, err := us.GetUserProfile(ctx, req)
-
-		assert.Equal(res, lur)
-		assert.Nil(err)
 	})
 }
 

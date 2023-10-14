@@ -26,10 +26,6 @@ type LoginUserResponse struct {
 	Token string
 }
 
-type GetUserProfileRequest struct {
-	UserId int
-}
-
 type ProfileUserResponse struct {
 	Name          string
 	Email         string

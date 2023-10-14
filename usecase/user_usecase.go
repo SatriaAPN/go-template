@@ -17,7 +17,6 @@ import (
 type UserUsecase interface {
 	CreateUser(ctx context.Context, cu dtousecase.CreateUserRequest) (dtousecase.CreateUserResponse, error)
 	LoginUser(ctx context.Context, cu dtousecase.LoginUserRequest) (dtousecase.LoginUserResponse, error)
-	GetUserProfile(ctx context.Context, r dtousecase.GetUserProfileRequest) (dtousecase.ProfileUserResponse, error)
 	ForgetPassword(ctx context.Context, r dtousecase.ForgetPasswordRequest) (dtousecase.ForgetPasswordResponse, error)
 	ResetPassword(ctx context.Context, r dtousecase.ResetPasswordRequest) error
 }
@@ -151,25 +150,6 @@ func (uu *userUsecase) checkLoginUserData(ctx context.Context, cu dtousecase.Log
 	}
 
 	return nil
-}
-
-func (uu *userUsecase) GetUserProfile(ctx context.Context, r dtousecase.GetUserProfileRequest) (dtousecase.ProfileUserResponse, error) {
-	res := dtousecase.ProfileUserResponse{}
-
-	u, err := uu.userRepository.FindById(ctx, r.UserId)
-
-	if err != nil {
-		return res, errorapp.ErrorHandling(err)
-	}
-
-	if err != nil {
-		return res, errorapp.ErrorHandling(err)
-	}
-
-	res.Name = u.Name
-	res.Email = u.Email
-
-	return res, nil
 }
 
 func (uu *userUsecase) ForgetPassword(ctx context.Context, r dtousecase.ForgetPasswordRequest) (dtousecase.ForgetPasswordResponse, error) {

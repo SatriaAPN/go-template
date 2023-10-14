@@ -3,13 +3,11 @@ package handlerrest_test
 import (
 	"encoding/json"
 	"fmt"
-	dto "go-template/dto/general"
 	dtousecase "go-template/dto/general/usecase"
 	dtohttp "go-template/dto/http"
 	handlerrest "go-template/handler/rest"
 	"go-template/mocks"
 	routerrest "go-template/server/rest/router"
-	"go-template/share/general/util"
 	"net/http"
 	"net/http/httptest"
 	"strings"
@@ -98,33 +96,6 @@ func TestUserHandler_UserLogin(t *testing.T) {
 
 		mockUserUsecase.On("LoginUser", mock.Anything, u).Return(res, nil)
 		req, _ := http.NewRequest(http.MethodPost, "/login", MakeRequestBody(u))
-		rec := serveUserHandler(req, rc)
-
-		assert.Equal(http.StatusOK, rec.Code)
-	})
-}
-
-func TestUserHandler_GetProfile(t *testing.T) {
-	assert := assert.New(t)
-	var (
-		mockUserUsecase = new(mocks.UserUsecase)
-		uhc             = handlerrest.UserHandlerConfig{
-			UserUsecase: mockUserUsecase,
-		}
-		uh = handlerrest.NewUserHandler(uhc)
-		rc = routerrest.RouterConfig{
-			UserHandler: uh,
-		}
-
-		at, _ = util.GetAuthTokenGenerator().Encode(dto.AuthData{ID: 1})
-		at2   = "Bearer " + at
-	)
-	t.Run("should get user profile", func(t *testing.T) {
-
-		mockUserUsecase.On("GetUserProfile", mock.Anything, dtousecase.GetUserProfileRequest{UserId: 1}).Return(dtousecase.ProfileUserResponse{}, nil)
-
-		req, _ := http.NewRequest(http.MethodGet, "/profile", nil)
-		req.Header.Set("Authorization", at2)
 		rec := serveUserHandler(req, rc)
 
 		assert.Equal(http.StatusOK, rec.Code)

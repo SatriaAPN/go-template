@@ -37,7 +37,6 @@ func (rb *router) GetRouter() *gin.Engine {
 func (rb *router) buildEndpointHandler() {
 	rb.router.POST("/users", rb.userHandler.CreateUser)
 	rb.router.POST("/login", rb.userHandler.Login)
-	rb.router.GET("/profile", middleware.JwtDecoding(), rb.userHandler.GetProfile)
 	rb.router.POST("/forget-password", rb.userHandler.ForgetPassword)
 	rb.router.POST("/reset-password", rb.userHandler.ResetPassword)
 
