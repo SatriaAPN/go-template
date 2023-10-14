@@ -2,7 +2,7 @@ package errorapp
 
 import (
 	"fmt"
-	"go-template/share/config"
+	"go-template/share/general/config"
 
 	"github.com/go-errors/errors"
 )

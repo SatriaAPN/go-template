@@ -5,8 +5,8 @@ import (
 	handlergrpc "go-template/handler/grpc"
 	"go-template/pb"
 	"go-template/repository"
+	"go-template/share/general/util"
 	interceptor "go-template/share/grpc/inteceptor"
-	"go-template/share/util"
 	"go-template/usecase"
 
 	"google.golang.org/grpc"

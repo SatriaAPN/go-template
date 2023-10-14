@@ -2,8 +2,8 @@ package middleware
 
 import (
 	dtohttp "go-template/dto/http"
-	errorapp "go-template/share/error"
-	"go-template/share/util"
+	errorapp "go-template/share/general/error"
+	"go-template/share/general/util"
 	"net/http"
 	"time"
 

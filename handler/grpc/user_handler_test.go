@@ -2,9 +2,9 @@ package handlergrpc_test
 
 import (
 	"context"
-	handlergrpc "library-exercise/handler/grpc"
-	"library-exercise/mocks"
-	"library-exercise/pb"
+	handlergrpc "go-template/handler/grpc"
+	"go-template/mocks"
+	"go-template/pb"
 	"testing"
 
 	"github.com/stretchr/testify/assert"

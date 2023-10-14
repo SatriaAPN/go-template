@@ -3,7 +3,7 @@
 package mocks
 
 import (
-	dto "go-template/dto"
+	dto "go-template/dto/general"
 
 	mock "github.com/stretchr/testify/mock"
 )

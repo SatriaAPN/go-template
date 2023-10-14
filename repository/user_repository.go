@@ -2,9 +2,9 @@ package repository
 
 import (
 	"context"
-	dtorepository "go-template/dto/repository"
+	dtorepository "go-template/dto/general/repository"
 	"go-template/entity"
-	errorapp "go-template/share/error"
+	errorapp "go-template/share/general/error"
 
 	"github.com/go-errors/errors"
 

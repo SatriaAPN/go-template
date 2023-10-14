@@ -2,7 +2,7 @@ package utilhttp
 
 import (
 	"errors"
-	"go-template/dto"
+	dto "go-template/dto/general"
 	"strconv"
 	"strings"
 

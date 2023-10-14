@@ -1,8 +1,8 @@
 package handlerrest
 
 import (
+	dtousecase "go-template/dto/general/usecase"
 	dtohttp "go-template/dto/http"
-	dtousecase "go-template/dto/usecase"
 	utilhttp "go-template/share/http/util"
 	"go-template/usecase"
 	"net/http"

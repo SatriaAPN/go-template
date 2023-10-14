@@ -3,8 +3,8 @@ package util
 import (
 	"encoding/json"
 	"fmt"
-	"go-template/dto"
-	"go-template/share/config"
+	dto "go-template/dto/general"
+	"go-template/share/general/config"
 	"time"
 
 	"github.com/golang-jwt/jwt/v5"

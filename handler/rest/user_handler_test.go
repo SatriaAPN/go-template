@@ -3,13 +3,13 @@ package handlerrest_test
 import (
 	"encoding/json"
 	"fmt"
-	"go-template/dto"
+	dto "go-template/dto/general"
+	dtousecase "go-template/dto/general/usecase"
 	dtohttp "go-template/dto/http"
-	dtousecase "go-template/dto/usecase"
-	handler "go-template/handler/rest"
+	handlerrest "go-template/handler/rest"
 	"go-template/mocks"
 	routerrest "go-template/server/rest/router"
-	"go-template/share/util"
+	"go-template/share/general/util"
 	"net/http"
 	"net/http/httptest"
 	"strings"
@@ -38,10 +38,10 @@ func TestUserHandler_CreateUser(t *testing.T) {
 	assert := assert.New(t)
 	var (
 		mockUserUsecase = new(mocks.UserUsecase)
-		uhc             = handler.UserHandlerConfig{
+		uhc             = handlerrest.UserHandlerConfig{
 			UserUsecase: mockUserUsecase,
 		}
-		uh = handler.NewUserHandler(uhc)
+		uh = handlerrest.NewUserHandler(uhc)
 
 		rc = routerrest.RouterConfig{
 			UserHandler: uh,
@@ -78,10 +78,10 @@ func TestUserHandler_UserLogin(t *testing.T) {
 	assert := assert.New(t)
 	var (
 		mockUserUsecase = new(mocks.UserUsecase)
-		uhc             = handler.UserHandlerConfig{
+		uhc             = handlerrest.UserHandlerConfig{
 			UserUsecase: mockUserUsecase,
 		}
-		uh = handler.NewUserHandler(uhc)
+		uh = handlerrest.NewUserHandler(uhc)
 
 		rc = routerrest.RouterConfig{
 			UserHandler: uh,
@@ -108,10 +108,10 @@ func TestUserHandler_GetProfile(t *testing.T) {
 	assert := assert.New(t)
 	var (
 		mockUserUsecase = new(mocks.UserUsecase)
-		uhc             = handler.UserHandlerConfig{
+		uhc             = handlerrest.UserHandlerConfig{
 			UserUsecase: mockUserUsecase,
 		}
-		uh = handler.NewUserHandler(uhc)
+		uh = handlerrest.NewUserHandler(uhc)
 		rc = routerrest.RouterConfig{
 			UserHandler: uh,
 		}
@@ -135,10 +135,10 @@ func TestUserHandler_ForgetPassword(t *testing.T) {
 	assert := assert.New(t)
 	var (
 		mockUserUsecase = new(mocks.UserUsecase)
-		uhc             = handler.UserHandlerConfig{
+		uhc             = handlerrest.UserHandlerConfig{
 			UserUsecase: mockUserUsecase,
 		}
-		uh = handler.NewUserHandler(uhc)
+		uh = handlerrest.NewUserHandler(uhc)
 
 		rc = routerrest.RouterConfig{
 			UserHandler: uh,

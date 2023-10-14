@@ -4,7 +4,7 @@ package mocks
 
 import (
 	context "context"
-	dtorepository "go-template/dto/repository"
+	dtorepository "go-template/dto/general/repository"
 	entity "go-template/entity"
 
 	mock "github.com/stretchr/testify/mock"

@@ -2,7 +2,7 @@ package middleware
 
 import (
 	"context"
-	"go-template/share/config"
+	"go-template/share/general/config"
 	"time"
 
 	"github.com/gin-gonic/gin"

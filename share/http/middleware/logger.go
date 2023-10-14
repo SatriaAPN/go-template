@@ -2,7 +2,7 @@ package middleware
 
 import (
 	dtohttp "go-template/dto/http"
-	"go-template/share/util"
+	"go-template/share/general/util"
 
 	"github.com/gin-gonic/gin"
 )

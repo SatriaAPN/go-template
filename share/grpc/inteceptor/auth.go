@@ -3,9 +3,9 @@ package interceptor
 import (
 	"context"
 	"errors"
-	"go-template/dto"
+	dto "go-template/dto/general"
+	"go-template/share/general/util"
 	utilgrpc "go-template/share/grpc/util"
-	"go-template/share/util"
 	"strings"
 
 	"google.golang.org/grpc"

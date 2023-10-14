@@ -4,7 +4,7 @@ package mocks
 
 import (
 	context "context"
-	dtousecase "go-template/dto/usecase"
+	dtousecase "go-template/dto/general/usecase"
 
 	mock "github.com/stretchr/testify/mock"
 )

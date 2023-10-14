@@ -1,9 +1,9 @@
 package util_test
 
 import (
-	"go-template/dto"
+	dto "go-template/dto/general"
 	dtohttp "go-template/dto/http"
-	"go-template/share/util"
+	"go-template/share/general/util"
 	"testing"
 
 	"github.com/stretchr/testify/assert"

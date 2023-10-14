@@ -3,7 +3,7 @@ package handlergrpc
 import (
 	"context"
 	"fmt"
-	dtousecase "go-template/dto/usecase"
+	dtousecase "go-template/dto/general/usecase"
 	"go-template/pb"
 	"go-template/usecase"
 )

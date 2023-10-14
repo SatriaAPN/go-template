@@ -2,13 +2,13 @@ package usecase
 
 import (
 	"context"
-	"go-template/dto"
-	dtousecase "go-template/dto/usecase"
+	dto "go-template/dto/general"
+	dtousecase "go-template/dto/general/usecase"
 	"go-template/entity"
 	"go-template/repository"
-	"go-template/share/config"
-	errorapp "go-template/share/error"
-	"go-template/share/util"
+	"go-template/share/general/config"
+	errorapp "go-template/share/general/error"
+	"go-template/share/general/util"
 	"time"
 
 	"github.com/go-errors/errors"

@@ -1,7 +1,7 @@
 package util
 
 import (
-	"go-template/share/config"
+	"go-template/share/general/config"
 
 	"golang.org/x/crypto/bcrypt"
 )
