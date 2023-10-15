@@ -1,26 +1,26 @@
 package dtohttp
 
 type errorLoggerData struct {
-	Info       string
-	RequestId  string
-	StackTrace string
+	info       string
+	requestId  string
+	stackTrace string
 }
 
-func NewErrorLoggerData(info string, requestId string, stackTrace string) LoggingData {
+func NewErrorLoggerData(info string, requestId string, stackTrace string) *errorLoggerData {
 	return &errorLoggerData{
-		Info:       info,
-		RequestId:  requestId,
-		StackTrace: stackTrace,
+		info:       info,
+		requestId:  requestId,
+		stackTrace: stackTrace,
 	}
 }
 
-func (e *errorLoggerData) GetParam() map[string]interface{} {
+func (e *errorLoggerData) GetFields() map[string]interface{} {
 	return map[string]interface{}{
-		"request_id":  e.RequestId,
-		"stack_trace": e.StackTrace,
+		"request_id":  e.requestId,
+		"stack_trace": e.stackTrace,
 	}
 }
 
 func (e *errorLoggerData) GetInfo() string {
-	return e.Info
+	return e.info
 }

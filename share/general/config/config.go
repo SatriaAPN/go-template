@@ -9,7 +9,7 @@ import (
 )
 
 func InitEnvReader() {
-	viper.SetConfigFile("../../.env")
+	viper.SetConfigFile(".env")
 	viper.ReadInConfig()
 	viper.AddConfigPath("path")
 }

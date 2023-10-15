@@ -3,7 +3,7 @@
 package mocks
 
 import (
-	dtohttp "go-template/dto/http"
+	util "go-template/share/general/util"
 
 	mock "github.com/stretchr/testify/mock"
 )
@@ -13,14 +13,14 @@ type Logger struct {
 	mock.Mock
 }
 
-// Errorf provides a mock function with given fields: ld
-func (_m *Logger) Errorf(ld dtohttp.LoggingData) {
-	_m.Called(ld)
+// Errorf provides a mock function with given fields: ldp
+func (_m *Logger) Errorf(ldp util.LoggerfDataProvider) {
+	_m.Called(ldp)
 }
 
-// Infof provides a mock function with given fields: ld
-func (_m *Logger) Infof(ld dtohttp.LoggingData) {
-	_m.Called(ld)
+// Infof provides a mock function with given fields: ldp
+func (_m *Logger) Infof(ldp util.LoggerfDataProvider) {
+	_m.Called(ldp)
 }
 
 type mockConstructorTestingTNewLogger interface {
