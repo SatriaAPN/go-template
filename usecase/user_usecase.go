@@ -37,14 +37,27 @@ type UserUsecaseConfig struct {
 }
 
 func NewUserUsecase(config UserUsecaseConfig) UserUsecase {
-	bu := userUsecase{
+	uu := userUsecase{
 		userRepository:       config.UserRepository,
 		passwordHasher:       config.PasswordHasher,
 		authTokenGenerator:   config.AuthTokenGenerator,
 		randomTokenGenerator: config.RandomTokenGenerator,
 	}
 
-	return &bu
+	if config.UserRepository != nil {
+		uu.userRepository = config.UserRepository
+	}
+	if config.PasswordHasher != nil {
+		uu.passwordHasher = config.PasswordHasher
+	}
+	if config.AuthTokenGenerator != nil {
+		uu.authTokenGenerator = config.AuthTokenGenerator
+	}
+	if config.RandomTokenGenerator != nil {
+		uu.randomTokenGenerator = config.RandomTokenGenerator
+	}
+
+	return &uu
 }
 
 func (uu *userUsecase) CreateUser(ctx context.Context, cu dtousecase.CreateUserRequest) (dtousecase.CreateUserResponse, error) {
