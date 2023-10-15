@@ -25,9 +25,13 @@ type UserHandlerConfig struct {
 }
 
 func NewUserHandler(config UserHandlerConfig) UserHandler {
-	return &userHandler{
-		userUsecase: config.UserUsecase,
+	uh := userHandler{}
+
+	if config.UserUsecase != nil {
+		uh.userUsecase = config.UserUsecase
 	}
+
+	return &uh
 }
 
 func (uh *userHandler) CreateUser(c *gin.Context) {

@@ -37,12 +37,7 @@ type UserUsecaseConfig struct {
 }
 
 func NewUserUsecase(config UserUsecaseConfig) UserUsecase {
-	uu := userUsecase{
-		userRepository:       config.UserRepository,
-		passwordHasher:       config.PasswordHasher,
-		authTokenGenerator:   config.AuthTokenGenerator,
-		randomTokenGenerator: config.RandomTokenGenerator,
-	}
+	uu := userUsecase{}
 
 	if config.UserRepository != nil {
 		uu.userRepository = config.UserRepository
