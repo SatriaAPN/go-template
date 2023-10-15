@@ -30,8 +30,10 @@ type UserRepositoryConfig struct {
 }
 
 func NewUserRepository(config UserRepositoryConfig) UserRepository {
-	br := userRepository{
-		db: config.Db,
+	br := userRepository{}
+
+	if config.Db != nil {
+		br.db = config.Db
 	}
 
 	return &br
