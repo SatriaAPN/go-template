@@ -1,10 +1,5 @@
 package dtohttp
 
-type LoggingData interface {
-	GetParam() map[string]interface{}
-	GetInfo() string
-}
-
 type httpRequestLogging struct {
 	Endpoint  string
 	Method    string
@@ -21,7 +16,7 @@ func NewHttpRequestLogging(endpoint string, method string, requestId string, inf
 	}
 }
 
-func (h *httpRequestLogging) GetParam() map[string]interface{} {
+func (h *httpRequestLogging) GetFields() map[string]interface{} {
 	return map[string]interface{}{
 		"endpoint":   h.Endpoint,
 		"method":     h.Method,
@@ -51,7 +46,7 @@ func NewHttpResponseLogging(endpoint string, method string, requestId string, in
 	}
 }
 
-func (h *httpResponseLogging) GetParam() map[string]interface{} {
+func (h *httpResponseLogging) GetFields() map[string]interface{} {
 	return map[string]interface{}{
 		"endpoint":   h.Endpoint,
 		"method":     h.Method,
