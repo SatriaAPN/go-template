@@ -7,6 +7,8 @@ import (
 )
 
 func UnaryInterceptor(ctx context.Context, req interface{}, info *grpc.UnaryServerInfo, handler grpc.UnaryHandler) (interface{}, error) {
+	SetRequestId(&ctx)
+
 	if !blacklistMethodAuth(info.FullMethod) {
 		err := auth(&ctx, &req, info)
 
