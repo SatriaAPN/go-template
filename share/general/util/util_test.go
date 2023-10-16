@@ -2,6 +2,7 @@ package util_test
 
 import (
 	dto "go-template/dto/general"
+	dtohttp "go-template/dto/http"
 	"go-template/share/general/util"
 	"testing"
 
@@ -90,17 +91,17 @@ func TestDataValidator(t *testing.T) {
 }
 
 // do I even need to test this? my question to me
-// func TestLogger(t *testing.T) {
-// 	t.Run("test logging info and error", func(t *testing.T) {
-// 		var (
-// 			logger = util.GetLogger()
-// 		)
+func TestLogger(t *testing.T) {
+	t.Run("test logging info and error", func(t *testing.T) {
+		var (
+			logger = util.GetLogger()
+		)
 
-// 		logger.Infof(dtohttp.NewHttpRequestLogging("/endpoint", "GET", "x-request-id", "request"))
+		logger.Infof(dtohttp.NewHttpRequestLogging("/endpoint", "GET", "x-request-id", "request"))
 
-// 		logger.Errorf(dtohttp.NewHttpRequestLogging("/endpoint", "GET", "x-request-id", "request"))
-// 	})
-// }
+		logger.Errorf(dtohttp.NewHttpRequestLogging("/endpoint", "GET", "x-request-id", "request"))
+	})
+}
 
 func TestRandomTokenGenerator(t *testing.T) {
 	assert := assert.New(t)

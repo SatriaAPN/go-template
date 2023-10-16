@@ -31,11 +31,14 @@ func NewServer() *grpc.Server {
 	}
 	uu := usecase.NewUserUsecase(uuc)
 
-	uh := handlergrpc.NewUserHandler(uu)
+	uhc := handlergrpc.UserHandlerConfig{
+		UserUsecase: uu,
+	}
+	uh := handlergrpc.NewUserHandler(uhc)
 
 	// setup the server
 	server := grpc.NewServer(
-		grpc.UnaryInterceptor(interceptor.UnaryInterceptor),
+		grpc.ChainUnaryInterceptor(interceptor.SetRequestIdInterceptor, interceptor.LoggerInterceptor, interceptor.AuthInterceptor),
 	)
 
 	// register the handler to server

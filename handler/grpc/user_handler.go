@@ -21,9 +21,15 @@ type userHandler struct {
 	userUsecase usecase.UserUsecase
 }
 
-func NewUserHandler(uu usecase.UserUsecase) UserHandler {
-	uh := &userHandler{
-		userUsecase: uu,
+type UserHandlerConfig struct {
+	UserUsecase usecase.UserUsecase
+}
+
+func NewUserHandler(config UserHandlerConfig) UserHandler {
+	uh := &userHandler{}
+
+	if config.UserUsecase != nil {
+		uh.userUsecase = config.UserUsecase
 	}
 
 	return uh

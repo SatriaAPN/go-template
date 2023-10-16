@@ -9,6 +9,16 @@ import (
 	"google.golang.org/grpc/status"
 )
 
+func LoggerInterceptor(ctx context.Context, req interface{}, info *grpc.UnaryServerInfo, handler grpc.UnaryHandler) (interface{}, error) {
+	UnaryRequestLogging(ctx, req, info)
+
+	resp, err := handler(ctx, req)
+
+	UnaryResponseLogging(ctx, req, info, err)
+
+	return resp, err
+}
+
 func UnaryRequestLogging(ctx context.Context, req interface{}, info *grpc.UnaryServerInfo) {
 	ld := dtogrpc.NewRequestGrpcLogger(info.FullMethod, ctx.Value("X-Request-Id").(string), "request-grpc")
 

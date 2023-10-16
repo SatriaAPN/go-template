@@ -1,0 +1,9 @@
+proto < ./../proto/user.proto
+@host=http://localhost:50051
+
+### login success
+GRPC /Auth/Login
+{
+    "email": "satria@mail.com",
+    "password": "admin"
+}
