@@ -1,6 +1,7 @@
 package middleware
 
 import (
+	dto "go-template/dto/general"
 	dtohttp "go-template/dto/http"
 	errorapp "go-template/share/general/error"
 	"go-template/share/general/util"
@@ -23,7 +24,7 @@ func GlobalErrorHandler() gin.HandlerFunc {
 			case *errors.Error:
 				stackTrace := e.ErrorStack()
 
-				logger.Errorf(dtohttp.NewErrorLoggerData("error", c.Writer.Header().Get("X-Request-Id"), stackTrace))
+				logger.Errorf(dtohttp.NewErrorLoggerData("error", c.Writer.Header().Get(dto.RequestIdKey), stackTrace))
 
 				rCode := http.StatusInternalServerError
 				rMessage := e.Error()
@@ -38,7 +39,7 @@ func GlobalErrorHandler() gin.HandlerFunc {
 					"error": e.Error(),
 				})
 			default:
-				logger.Errorf(dtohttp.NewErrorLoggerData("error", c.Writer.Header().Get("X-Request-Id"), "unhandled"))
+				logger.Errorf(dtohttp.NewErrorLoggerData("error", c.Writer.Header().Get(dto.RequestIdKey), "unhandled"))
 
 				c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{
 					"error": "Something Wrong has Happened",

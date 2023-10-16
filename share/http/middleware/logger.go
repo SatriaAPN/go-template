@@ -1,6 +1,7 @@
 package middleware
 
 import (
+	dto "go-template/dto/general"
 	dtohttp "go-template/dto/http"
 	"go-template/share/general/util"
 	"time"
@@ -13,13 +14,13 @@ func Logger() gin.HandlerFunc {
 		logger := util.GetLogger()
 		tn := time.Now()
 
-		requestData := dtohttp.NewHttpRequestLogging(c.Request.URL.Path, c.Request.Method, c.Writer.Header().Get("X-Request-Id"), "request")
+		requestData := dtohttp.NewHttpRequestLogging(c.Request.URL.Path, c.Request.Method, c.Writer.Header().Get(dto.RequestIdKey), "request")
 		logger.Infof(requestData)
 
 		c.Next()
 
 		tp := time.Since(tn)
-		responseData := dtohttp.NewHttpResponseLogging(c.Request.URL.Path, c.Request.Method, c.Writer.Header().Get("X-Request-Id"), "response", c.Writer.Status(), tp)
+		responseData := dtohttp.NewHttpResponseLogging(c.Request.URL.Path, c.Request.Method, c.Writer.Header().Get(dto.RequestIdKey), "response", c.Writer.Status(), tp)
 		logger.Infof(responseData)
 	}
 }

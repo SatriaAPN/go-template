@@ -97,9 +97,9 @@ func TestLogger(t *testing.T) {
 			logger = util.GetLogger()
 		)
 
-		logger.Infof(dtohttp.NewHttpRequestLogging("/endpoint", "GET", "x-request-id", "request"))
+		logger.Infof(dtohttp.NewHttpRequestLogging("/endpoint", "GET", dto.RequestIdKey, "request"))
 
-		logger.Errorf(dtohttp.NewHttpRequestLogging("/endpoint", "GET", "x-request-id", "request"))
+		logger.Errorf(dtohttp.NewHttpRequestLogging("/endpoint", "GET", dto.RequestIdKey, "request"))
 	})
 }
 

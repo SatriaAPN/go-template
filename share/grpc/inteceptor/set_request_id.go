@@ -2,6 +2,7 @@ package interceptor
 
 import (
 	"context"
+	dto "go-template/dto/general"
 
 	"github.com/google/uuid"
 	"google.golang.org/grpc"
@@ -9,7 +10,7 @@ import (
 
 func SetRequestId(ctx context.Context, req interface{}, info *grpc.UnaryServerInfo, handler grpc.UnaryHandler) (interface{}, error) {
 	uuid := uuid.NewString()
-	ctx = context.WithValue(ctx, "X-Request-Id", uuid)
+	ctx = context.WithValue(ctx, dto.RequestIdKey, uuid)
 
 	resp, err := handler(ctx, req)
 

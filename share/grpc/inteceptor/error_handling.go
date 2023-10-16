@@ -5,6 +5,7 @@ import (
 
 	"github.com/go-errors/errors"
 
+	dto "go-template/dto/general"
 	dtogrpc "go-template/dto/grpc"
 	errorapp "go-template/share/general/error"
 	"go-template/share/general/util"
@@ -26,7 +27,7 @@ func ErrorHandling(ctx context.Context, req interface{}, info *grpc.UnaryServerI
 			stackTrace = e.ErrorStack()
 		}
 
-		egl := dtogrpc.NewErrorLoggerData("error-grpc", ctx.Value("X-Request-Id").(string), stackTrace)
+		egl := dtogrpc.NewErrorLoggerData("error-grpc", ctx.Value(dto.RequestIdKey).(string), stackTrace)
 		util.GetLogger().Errorf(egl)
 	}
 

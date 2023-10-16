@@ -2,6 +2,7 @@ package interceptor
 
 import (
 	"context"
+	dto "go-template/dto/general"
 	dtogrpc "go-template/dto/grpc"
 	"go-template/share/general/util"
 	"time"
@@ -22,7 +23,7 @@ func Logger(ctx context.Context, req interface{}, info *grpc.UnaryServerInfo, ha
 }
 
 func UnaryRequestLogging(ctx context.Context, req interface{}, info *grpc.UnaryServerInfo) {
-	ld := dtogrpc.NewRequestGrpcLogger(info.FullMethod, ctx.Value("X-Request-Id").(string), "request-grpc")
+	ld := dtogrpc.NewRequestGrpcLogger(info.FullMethod, ctx.Value(dto.RequestIdKey).(string), "request-grpc")
 
 	util.GetLogger().Infof(ld)
 }
@@ -31,7 +32,7 @@ func UnaryResponseLogging(ctx context.Context, req interface{}, info *grpc.Unary
 	s := status.Code(err)
 
 	timePassed := time.Since(requestTime)
-	ld := dtogrpc.NewResponseGrpcLogger(info.FullMethod, ctx.Value("X-Request-Id").(string), "response-grpc", int(s), timePassed)
+	ld := dtogrpc.NewResponseGrpcLogger(info.FullMethod, ctx.Value(dto.RequestIdKey).(string), "response-grpc", int(s), timePassed)
 
 	util.GetLogger().Infof(ld)
 }

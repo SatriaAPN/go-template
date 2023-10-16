@@ -1,6 +1,8 @@
 package middleware
 
 import (
+	dto "go-template/dto/general"
+
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
 )
@@ -8,7 +10,7 @@ import (
 func SetRequestId() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		uuid := uuid.NewString()
-		c.Header("X-Request-Id", uuid)
+		c.Header(dto.RequestIdKey, uuid)
 		c.Next()
 	}
 }
