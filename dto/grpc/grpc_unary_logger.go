@@ -57,3 +57,28 @@ func (rgl *responseGrpcLogger) GetFields() map[string]interface{} {
 func (rgl *responseGrpcLogger) GetInfo() string {
 	return rgl.info
 }
+
+type errorGrpcLogger struct {
+	info       string
+	requestId  string
+	stackTrace string
+}
+
+func NewErrorLoggerData(info string, requestId string, stackTrace string) *errorGrpcLogger {
+	return &errorGrpcLogger{
+		info:       info,
+		requestId:  requestId,
+		stackTrace: stackTrace,
+	}
+}
+
+func (e *errorGrpcLogger) GetFields() map[string]interface{} {
+	return map[string]interface{}{
+		"request_id":  e.requestId,
+		"stack_trace": e.stackTrace,
+	}
+}
+
+func (e *errorGrpcLogger) GetInfo() string {
+	return e.info
+}

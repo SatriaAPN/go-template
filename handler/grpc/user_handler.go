@@ -6,9 +6,6 @@ import (
 	dtousecase "go-template/dto/general/usecase"
 	"go-template/pb"
 	"go-template/usecase"
-
-	"google.golang.org/grpc/codes"
-	"google.golang.org/grpc/status"
 )
 
 type UserHandler interface {
@@ -46,8 +43,7 @@ func (uh *userHandler) Login(ctx context.Context, req *pb.LoginRequest) (*pb.Log
 	})
 
 	if err != nil {
-		e := status.Errorf(codes.InvalidArgument, err.Error())
-		return res, e
+		return res, err
 	}
 	res.Message = "success"
 	res.Token = uRes.Token

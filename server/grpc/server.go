@@ -38,7 +38,12 @@ func NewServer() *grpc.Server {
 
 	// setup the server
 	server := grpc.NewServer(
-		grpc.ChainUnaryInterceptor(interceptor.SetRequestIdInterceptor, interceptor.LoggerInterceptor, interceptor.AuthInterceptor),
+		grpc.ChainUnaryInterceptor(
+			interceptor.SetRequestId,
+			interceptor.ErrorHandling,
+			interceptor.Logger,
+			interceptor.Auth,
+		),
 	)
 
 	// register the handler to server

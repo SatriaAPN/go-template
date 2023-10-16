@@ -2,25 +2,26 @@ package interceptor
 
 import (
 	"context"
-	"errors"
 	dto "go-template/dto/general"
 	"go-template/share/general/util"
 	utilgrpc "go-template/share/grpc/util"
 	"strings"
 
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/codes"
+	"google.golang.org/grpc/status"
 )
 
-func AuthInterceptor(ctx context.Context, req interface{}, info *grpc.UnaryServerInfo, handler grpc.UnaryHandler) (interface{}, error) {
+func Auth(ctx context.Context, req interface{}, info *grpc.UnaryServerInfo, handler grpc.UnaryHandler) (interface{}, error) {
 	if !blacklistMethodAuth(info.FullMethod) {
 		authorizationHeader, err := utilgrpc.GetAuthTokenFromGrpcContext(&ctx)
 
 		if err != nil {
-			return nil, err
+			return nil, status.Error(codes.PermissionDenied, err.Error())
 		}
 
 		if !strings.Contains(authorizationHeader, "Bearer") {
-			return nil, errors.New("invalid token")
+			return nil, status.Error(codes.PermissionDenied, "invalid token")
 		}
 
 		tokenString := strings.Replace(authorizationHeader, "Bearer ", "", -1)
@@ -28,7 +29,7 @@ func AuthInterceptor(ctx context.Context, req interface{}, info *grpc.UnaryServe
 		ud, err := util.GetAuthTokenGenerator().Decode(tokenString)
 
 		if err != nil {
-			return nil, err
+			return nil, status.Error(codes.PermissionDenied, err.Error())
 		}
 
 		ctx = context.WithValue(ctx, dto.AuthDataKey, ud)
