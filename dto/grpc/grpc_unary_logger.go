@@ -1,5 +1,7 @@
 package dtogrpc
 
+import "time"
+
 type requestGrpcLogger struct {
 	fullMethod string
 	requestId  string
@@ -30,14 +32,16 @@ type responseGrpcLogger struct {
 	requestId  string
 	status     int
 	info       string
+	time       time.Duration
 }
 
-func NewResponseGrpcLogger(fullMethod string, requestId string, info string, status int) *responseGrpcLogger {
+func NewResponseGrpcLogger(fullMethod string, requestId string, info string, status int, usedTime time.Duration) *responseGrpcLogger {
 	return &responseGrpcLogger{
 		fullMethod: fullMethod,
 		requestId:  requestId,
 		status:     status,
 		info:       info,
+		time:       usedTime,
 	}
 }
 
@@ -46,6 +50,7 @@ func (rgl *responseGrpcLogger) GetFields() map[string]interface{} {
 		"full_method": rgl.fullMethod,
 		"request_id":  rgl.requestId,
 		"status":      rgl.status,
+		"timePassed":  rgl.time,
 	}
 }
 
