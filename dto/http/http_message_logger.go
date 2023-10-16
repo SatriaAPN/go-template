@@ -1,5 +1,7 @@
 package dtohttp
 
+import "time"
+
 type httpRequestLogging struct {
 	Endpoint  string
 	Method    string
@@ -29,29 +31,32 @@ func (h *httpRequestLogging) GetInfo() string {
 }
 
 type httpResponseLogging struct {
-	Endpoint  string
-	Method    string
-	RequestId string
-	Info      string
-	Status    int
+	Endpoint   string
+	Method     string
+	RequestId  string
+	Info       string
+	Status     int
+	TimePassed time.Duration
 }
 
-func NewHttpResponseLogging(endpoint string, method string, requestId string, info string, status int) *httpResponseLogging {
+func NewHttpResponseLogging(endpoint string, method string, requestId string, info string, status int, tp time.Duration) *httpResponseLogging {
 	return &httpResponseLogging{
-		Endpoint:  endpoint,
-		Method:    method,
-		RequestId: requestId,
-		Info:      info,
-		Status:    status,
+		Endpoint:   endpoint,
+		Method:     method,
+		RequestId:  requestId,
+		Info:       info,
+		Status:     status,
+		TimePassed: tp,
 	}
 }
 
 func (h *httpResponseLogging) GetFields() map[string]interface{} {
 	return map[string]interface{}{
-		"endpoint":   h.Endpoint,
-		"method":     h.Method,
-		"request_id": h.RequestId,
-		"status":     h.Status,
+		"endpoint":    h.Endpoint,
+		"method":      h.Method,
+		"request_id":  h.RequestId,
+		"status":      h.Status,
+		"time_passed": h.TimePassed,
 	}
 }
 
