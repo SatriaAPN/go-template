@@ -2,7 +2,7 @@ package routerrest
 
 import (
 	handlerrest "go-template/handler/rest"
-	"go-template/share/http/middleware"
+	"go-template/middleware"
 
 	"github.com/gin-gonic/gin"
 )

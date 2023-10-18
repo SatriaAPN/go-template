@@ -3,11 +3,11 @@ package servergrpc
 import (
 	"go-template/database"
 	handlergrpc "go-template/handler/grpc"
+	interceptor "go-template/inteceptor"
 	"go-template/pb"
 	"go-template/repository"
 	"go-template/share/general/config"
 	"go-template/share/general/util"
-	interceptor "go-template/share/grpc/inteceptor"
 	"go-template/usecase"
 
 	"google.golang.org/grpc"
