@@ -2,7 +2,7 @@ package errorapp
 
 import (
 	"fmt"
-	"go-template/share/general/config"
+	appconstant "go-template/share/general/constant"
 
 	"github.com/go-errors/errors"
 )
@@ -20,7 +20,7 @@ var ErrEmailAlreadyExist = errors.Errorf("email already exist")
 var ErrEmailIsNotValid = errors.Errorf("email is not valid")
 var ErrWrongPassword = errors.Errorf("wrong password")
 var ErrEmailNotFound = errors.Errorf("email not found")
-var ErrMinimumPasswordLength = errors.Errorf("minimum password length is " + fmt.Sprint(config.MinimumPasswordLength))
-var ErrMaximumPasswordLength = errors.Errorf("maximum password length is " + fmt.Sprint(config.MaximumPasswordLength))
-var ErrForgetPasswordTokenLength = errors.Errorf("token length is " + fmt.Sprint(config.ForgetPasswordTokenLength))
+var ErrMinimumPasswordLength = errors.Errorf("minimum password length is " + fmt.Sprint(appconstant.MinimumPasswordLength))
+var ErrMaximumPasswordLength = errors.Errorf("maximum password length is " + fmt.Sprint(appconstant.MaximumPasswordLength))
+var ErrForgetPasswordTokenLength = errors.Errorf("token length is " + fmt.Sprint(appconstant.ForgetPasswordTokenLength))
 var ErrResetCodeNotFound = errors.Errorf("reset code not found")

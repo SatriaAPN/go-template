@@ -6,7 +6,7 @@ import (
 	dtousecase "go-template/dto/general/usecase"
 	"go-template/entity"
 	"go-template/repository"
-	"go-template/share/general/config"
+	appconstant "go-template/share/general/constant"
 	errorapp "go-template/share/general/error"
 	"go-template/share/general/util"
 	"time"
@@ -91,11 +91,11 @@ func (uu *userUsecase) checkCreateUserData(ctx context.Context, cu dtousecase.Cr
 		return errors.New(errorapp.ErrEmailIsNotValid)
 	}
 
-	if len(cu.Password) < config.MinimumPasswordLength {
+	if len(cu.Password) < appconstant.MinimumPasswordLength {
 		return errors.New(errorapp.ErrMinimumPasswordLength)
 	}
 
-	if len(cu.Password) > config.MaximumPasswordLength {
+	if len(cu.Password) > appconstant.MaximumPasswordLength {
 		return errors.New(errorapp.ErrMaximumPasswordLength)
 	}
 
@@ -149,11 +149,11 @@ func (uu *userUsecase) checkLoginUserData(ctx context.Context, cu dtousecase.Log
 		return errors.New(errorapp.ErrEmailIsNotValid)
 	}
 
-	if len(cu.Password) < config.MinimumPasswordLength {
+	if len(cu.Password) < appconstant.MinimumPasswordLength {
 		return errors.New(errorapp.ErrMinimumPasswordLength)
 	}
 
-	if len(cu.Password) > config.MaximumPasswordLength {
+	if len(cu.Password) > appconstant.MaximumPasswordLength {
 		return errors.New(errorapp.ErrMaximumPasswordLength)
 	}
 
@@ -177,7 +177,7 @@ func (uu *userUsecase) ForgetPassword(ctx context.Context, r dtousecase.ForgetPa
 		return res, errors.New(errorapp.ErrEmailNotFound)
 	}
 
-	rt, err := uu.randomTokenGenerator.Generate(config.ForgetPasswordTokenLength)
+	rt, err := uu.randomTokenGenerator.Generate(appconstant.ForgetPasswordTokenLength)
 
 	if err != nil {
 		return res, errorapp.ErrorHandling(err)
@@ -192,7 +192,7 @@ func (uu *userUsecase) ForgetPassword(ctx context.Context, r dtousecase.ForgetPa
 	urp := entity.UserResetPassword{
 		UserId:    int(u.ID),
 		Token:     rt,
-		ExpiredAt: time.Now().Add(config.ForgetPasswordExpiredDuration),
+		ExpiredAt: time.Now().Add(appconstant.ForgetPasswordExpiredDuration),
 	}
 
 	urp2, err := uu.userRepository.CreateUserForgetPassword(ctx, urp)
@@ -272,11 +272,11 @@ func (uu *userUsecase) checkResetPasswordData(ctx context.Context, r dtousecase.
 		return errors.New(errorapp.ErrEmailIsNotValid)
 	}
 
-	if len(r.NewPassword) < config.MinimumPasswordLength {
+	if len(r.NewPassword) < appconstant.MinimumPasswordLength {
 		return errors.New(errorapp.ErrMinimumPasswordLength)
 	}
 
-	if len(r.Token) != config.ForgetPasswordTokenLength {
+	if len(r.Token) != appconstant.ForgetPasswordTokenLength {
 		return errors.New(errorapp.ErrForgetPasswordTokenLength)
 	}
 

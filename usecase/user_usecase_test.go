@@ -6,7 +6,7 @@ import (
 	dtousecase "go-template/dto/general/usecase"
 	"go-template/entity"
 	"go-template/mocks"
-	"go-template/share/general/config"
+	appconstant "go-template/share/general/constant"
 	errorapp "go-template/share/general/error"
 	"go-template/usecase"
 	"testing"
@@ -405,7 +405,7 @@ func TestUserUsecase_ForgetPassword(t *testing.T) {
 			res2 = entity.UserResetPassword{
 				UserId:    int(res1.ID),
 				Token:     res.Token,
-				ExpiredAt: time.Now().Add(config.ForgetPasswordExpiredDuration),
+				ExpiredAt: time.Now().Add(appconstant.ForgetPasswordExpiredDuration),
 			}
 		)
 
