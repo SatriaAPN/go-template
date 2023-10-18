@@ -41,7 +41,7 @@ func (atg *authTokenGenerator) Encode(ad dto.AuthData) (string, error) {
 	adString := string(adByte)
 
 	claims := jwt.MapClaims{
-		"iat": time.Now(),
+		"iat": time.Now().UnixMilli(),
 		"iss": config.ApplicationName(),
 		"exp": jwt.NewNumericDate(time.Now().Add(time.Duration(config.LoginExpirationDuration))),
 		"aud": adString,
