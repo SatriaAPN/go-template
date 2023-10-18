@@ -2,7 +2,7 @@ package appconstant
 
 import "time"
 
-var (
+const (
 	GachaBoardMinimumChoose          = 1
 	GachaBoardMaximumChoose          = 9
 	ForgetPasswordExpiredDuration    = 15 * time.Minute
@@ -24,7 +24,10 @@ var (
 	MinimumTransferAmount            = 1000
 	MaximumTransferAmount            = 50000000
 	MaximumTransferDescriptionLength = 35
-	GachaBoard                       = [][]int{
+)
+
+var (
+	GachaBoard = [][]int{
 		{1, 2, 3},
 		{4, 5, 6},
 		{7, 8, 9},
