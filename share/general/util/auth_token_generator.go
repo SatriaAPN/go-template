@@ -44,7 +44,7 @@ func (atg *authTokenGenerator) Encode(ad dto.AuthData) (string, error) {
 		"iat": time.Now().UnixMilli(),
 		"iss": config.ApplicationName(),
 		"exp": jwt.NewNumericDate(time.Now().Add(time.Duration(config.LoginExpirationDuration))),
-		"aud": adString,
+		"sub": adString,
 	}
 
 	token := jwt.NewWithClaims(
@@ -81,13 +81,13 @@ func (atg *authTokenGenerator) Decode(tokenString string) (dto.AuthData, error) 
 		return ad, err
 	}
 
-	audience, err := claims.GetAudience()
+	audience, err := claims.GetSubject()
 
 	if err != nil {
 		return ad, err
 	}
 
-	adByte := []byte(audience[0])
+	adByte := []byte(audience)
 
 	err = json.Unmarshal(adByte, &ad)
 
