@@ -6,6 +6,7 @@ import (
 	dtousecase "go-template/dto/general/usecase"
 	"go-template/pb"
 	"go-template/usecase"
+	"time"
 )
 
 type UserHandler interface {
@@ -36,6 +37,8 @@ func (uh *userHandler) Login(ctx context.Context, req *pb.LoginRequest) (*pb.Log
 	res := &pb.LoginResponse{}
 
 	fmt.Println(req)
+
+	time.Sleep(20 * time.Second)
 
 	uRes, err := uh.userUsecase.LoginUser(ctx, dtousecase.LoginUserRequest{
 		Email:    req.Email,

@@ -16,8 +16,13 @@ func main() {
 
 	srv := servergrpc.NewServer()
 
-	fmt.Println("gRPC server is running on port 50051")
-	if err := srv.Serve(listener); err != nil {
-		fmt.Println("Failed to serve:", err)
-	}
+	go func() {
+		fmt.Println("gRPC server is running on port 50051")
+		if err := srv.Serve(listener); err != nil {
+			fmt.Println("Failed to serve:", err)
+		}
+	}()
+
+	fmt.Println("gracefully shutdown")
+	srv.GracefulStop()
 }

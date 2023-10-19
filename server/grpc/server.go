@@ -11,12 +11,31 @@ import (
 	"go-template/usecase"
 
 	"google.golang.org/grpc"
+	"gorm.io/gorm"
 )
 
 func NewServer() *grpc.Server {
 	config.InitEnvReader()
 
 	db := database.GetInstance()
+
+	// setup the server
+	server := grpc.NewServer(
+		grpc.ChainUnaryInterceptor(
+			interceptor.SetRequestId,
+			interceptor.ErrorHandling,
+			interceptor.Logger,
+			interceptor.Auth,
+		),
+	)
+
+	// register the handler to server
+	pb.RegisterAuthServer(server, initUserHandler(db))
+
+	return server
+}
+
+func initUserHandler(db *gorm.DB) handlergrpc.UserHandler {
 
 	urc := repository.UserRepositoryConfig{
 		Db: db,
@@ -36,18 +55,5 @@ func NewServer() *grpc.Server {
 	}
 	uh := handlergrpc.NewUserHandler(uhc)
 
-	// setup the server
-	server := grpc.NewServer(
-		grpc.ChainUnaryInterceptor(
-			interceptor.SetRequestId,
-			interceptor.ErrorHandling,
-			interceptor.Logger,
-			interceptor.Auth,
-		),
-	)
-
-	// register the handler to server
-	pb.RegisterAuthServer(server, uh)
-
-	return server
+	return uh
 }
